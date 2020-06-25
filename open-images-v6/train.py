@@ -9,23 +9,27 @@ models = [
 
 # Class: 'Musical instrument'
 target_classes = [
+    'Accordion',
+    'Cello',
     'Drum',
     'French horn',
     'Guitar',
+    'Musical keyboard',
     'Piano',
     'Saxophone',
+    'Trombone',
     'Trumpet',
     'Violin'
- ]
+]
 
 # Arguments
-MODEL = models[3]
+MODEL = models[4]
 IMS_PER_BATCH = 4
-MAX_ITER = 20000
+MAX_ITER = 100000
 BASE_LR = 5e-4
 WARMUP_ITERS = 1000
 GAMMA = 0.5
-STEPS = (10000, 15000)
+STEPS = (10000, 30000, 50000, 70000, 90000,)
 debug = False
 
 experiment = f"{MODEL}__iter-{MAX_ITER}__lr-{BASE_LR}__warmup-{WARMUP_ITERS}"
@@ -165,6 +169,10 @@ cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128
 cfg.MODEL.RETINANET.NUM_CLASSES = len(target_classes)
 cfg.OUTPUT_DIR = experiment
 
+# Save config to file
+with open(experiment + "/config.yaml", "w") as f:
+    f.write(cfg.dump())
+
 os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
 trainer = DefaultTrainer(cfg) 
 trainer.resume_or_load(resume=False)
@@ -179,7 +187,3 @@ evaluator = COCOEvaluator("musical_instruments_validation", cfg, False, output_d
 trainer.test(cfg=cfg,
              model=trainer.model,
              evaluators=evaluator)
-
-# Save config to file
-with open(experiment + "/config.yaml", "w") as f:
-    f.write(cfg.dump())
