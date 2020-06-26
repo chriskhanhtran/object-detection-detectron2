@@ -1,5 +1,5 @@
 
-experiment = "faster_rcnn_R_50_FPN_3x__iter-100000__lr-0.001__warmup-1000"
+experiment = "retinanet_R_101_FPN_3x__iter-100000__lr-0.0005__warmup-1000"
 
 ########################################################################################################################
 import detectron2
@@ -28,15 +28,18 @@ from detectron2.structures import BoxMode
 
 # Class: 'Musical instrument'
 target_classes = [
+    'Accordion',
+    'Cello',
     'Drum',
     'French horn',
     'Guitar',
+    'Musical keyboard',
     'Piano',
     'Saxophone',
+    'Trombone',
     'Trumpet',
     'Violin'
- ]
-
+]
 # Format annotations
 def bbox_rel_to_abs(bbox, height, width):
     """
@@ -125,7 +128,11 @@ from detectron2.config import get_cfg
 cfg = get_cfg()
 cfg.merge_from_file(experiment + '/config.yaml')
 cfg.MODEL.WEIGHTS = experiment + '/model_final.pth'
+
 cfg.DATASETS.TEST = ("musical_instruments_validation",)
+cfg.DATASETS.TRAIN = ("musical_instruments_validation",)
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+cfg.MODEL.RETINANET.SCORE_THRESH_TEST = 0.5
 
 
 trainer = DefaultTrainer(cfg) 
