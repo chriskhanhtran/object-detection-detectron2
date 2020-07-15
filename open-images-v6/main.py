@@ -1,6 +1,3 @@
-# Usage example:
-# python train.py --model faster_rcnn_R_50_FPN_3x --max_iter 10000 --lr 3e-4
-
 import argparse
 from tqdm import tqdm
 import os, json, shutil, cv2

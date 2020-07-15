@@ -1,14 +1,3 @@
-# Usage example:
-# python train.py --model faster_rcnn_R_50_FPN_3x --max_iter 10000 --lr 3e-4
-
-models = [
-    "faster_rcnn_R_50_FPN_3x",
-    "faster_rcnn_R_101_FPN_3x",
-    "faster_rcnn_X_101_32x8d_FPN_3x",
-    "retinanet_R_50_FPN_3x",
-    "retinanet_R_101_FPN_3x",
-]
-
 import argparse
 from tqdm import tqdm
 import os
@@ -27,6 +16,15 @@ from detectron2.structures import BoxMode
 from detectron2.data import DatasetCatalog, MetadataCatalog
 from detectron2.engine import DefaultTrainer
 from detectron2.evaluation import COCOEvaluator
+
+
+models = [
+    "faster_rcnn_R_50_FPN_3x",
+    "faster_rcnn_R_101_FPN_3x",
+    "faster_rcnn_X_101_32x8d_FPN_3x",
+    "retinanet_R_50_FPN_3x",
+    "retinanet_R_101_FPN_3x",
+]
 
 
 def get_args_parser():
