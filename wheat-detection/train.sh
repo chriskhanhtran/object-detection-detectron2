@@ -1,0 +1,11 @@
+python main.py \
+    --train \
+    --train_annot_fp "./annot_train.csv" \
+    --eval \
+    --val_annot_fp "./annot_val.csv" \
+    --model "faster_rcnn_X_101_32x8d_FPN_3x" \
+    --max_iter 300 \
+    --lr 5e-4 \
+    --warmup_iters 100 \
+    --gamma 0.5 \
+    --lr_decay_steps 200 250

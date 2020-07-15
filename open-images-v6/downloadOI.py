@@ -45,11 +45,8 @@ commands = []
 cnt = 0
 
 for ind in range(0, len(classes)):
-
     class_name = classes[ind]
     print("Class " + str(ind) + " : " + class_name)
-
-    # subprocess.run(['mkdir', run_mode+'/'+class_name])
 
     command = "grep " + dict_list[class_name.replace("_", " ")] + " ./" + run_mode + "-annotations-bbox.csv"
     class_annotations = subprocess.run(command.split(), stdout=subprocess.PIPE).stdout.decode("utf-8")
